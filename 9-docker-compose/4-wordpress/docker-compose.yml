@@ -1,0 +1,29 @@
+version: "3.4"
+
+services:
+  wordpress:
+    image: wordpress
+    ports:
+      - "8000:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: blogdb
+      WORDPRESS_DB_USER: bloguser
+      WORDPRESS_DB_PASSWORD: 123456
+    volumes:
+      - wordpress_data:/var/www/html
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: blogdb
+      MYSQL_USER: bloguser
+      MYSQL_PASSWORD: 123456
+      MYSQL_RANDOM_ROOT_PASSWORD: "1"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  wordpress_data:
+  db_data:
